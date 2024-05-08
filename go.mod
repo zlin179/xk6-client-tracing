@@ -1,4 +1,4 @@
-module github.com/grafana/xk6-client-tracing
+module github.com/zlin179/xk6-client-tracing
 
 go 1.21
 
