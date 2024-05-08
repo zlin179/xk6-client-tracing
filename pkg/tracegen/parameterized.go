@@ -7,7 +7,7 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/grafana/xk6-client-tracing/pkg/random"
+	"github.com/zlin179/xk6-client-tracing/pkg/random"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/ptrace"
 )
