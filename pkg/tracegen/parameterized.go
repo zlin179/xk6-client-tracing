@@ -111,15 +111,10 @@ func (g *ParameterizedGenerator) generateSpan(t *TraceParams, dest ptrace.Span) 
 	span.SetEndTimestamp(pcommon.NewTimestampFromTime(endTime))
 	span.TraceState().FromRaw("x:y")
 
-	event := span.Events().AppendEmpty()
-	event.SetName(random.K6String(12))
-	event.SetTimestamp(pcommon.NewTimestampFromTime(startTime))
-	event.Attributes().PutStr(random.K6String(5), random.K6String(12))
-
 	link := span.Links().AppendEmpty()
 	link.SetTraceID(traceID)
 	link.SetSpanID(random.SpanID())
-	link.Attributes().PutStr(random.K6String(12), random.K6String(12))
+	link.Attributes().PutStr("mylink", "hereitis")
 
 	status := span.Status()
 	status.SetCode(1)
@@ -131,18 +126,18 @@ func (g *ParameterizedGenerator) generateSpan(t *TraceParams, dest ptrace.Span) 
 	}
 
 	// Fill the span with some random data
-	var size int64
-	for {
-		if size >= int64(t.Spans.Size) {
-			break
-		}
+	// var size int64
+	// for {
+	// 	if size >= int64(t.Spans.Size) {
+	// 		break
+	// 	}
 
-		rKey := random.K6String(rand.Intn(15))
-		rVal := random.K6String(rand.Intn(15))
-		attrs.PutStr(rKey, rVal)
+	// 	rKey := random.K6String(rand.Intn(15))
+	// 	rVal := random.K6String(rand.Intn(15))
+	// 	attrs.PutStr(rKey, rVal)
 
-		size += int64(unsafe.Sizeof(rKey)) + int64(unsafe.Sizeof(rVal))
-	}
+	// 	size += int64(unsafe.Sizeof(rKey)) + int64(unsafe.Sizeof(rVal))
+	// }
 
 	attrs.CopyTo(span.Attributes())
 	span.CopyTo(dest)
