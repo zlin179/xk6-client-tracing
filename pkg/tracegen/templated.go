@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/grafana/xk6-client-tracing/pkg/random"
-	"github.com/grafana/xk6-client-tracing/pkg/util"
+	"github.com/zlin179/xk6-client-tracing/pkg/random"
+	"github.com/zlin179/xk6-client-tracing/pkg/util"
 	"github.com/pkg/errors"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/ptrace"
