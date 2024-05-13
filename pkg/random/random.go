@@ -7,6 +7,7 @@ import (
 	"math/rand"
 	"net/http"
 	"time"
+	"sync"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
 )
@@ -25,6 +26,7 @@ var (
 		"shipping", "billing", "checkout", "cart", "search", "analytics"}
 
 	rnd *rand.Rand
+	rndMutex = &sync.Mutex{}
 )
 
 func init() {
@@ -38,9 +40,11 @@ func SelectElement[T any](elements []T) T {
 
 func String(n int) string {
 	s := make([]rune, n)
+	rndMutex.Lock()
 	for i := range s {
 		s[i] = SelectElement(letters)
 	}
+	rndMutex.Unlock()
 	return string(s)
 }
 
@@ -49,17 +53,21 @@ func K6String(n int) string {
 }
 
 func IntBetween(min, max int) int {
+	rndMutex.Lock()
 	n := rnd.Intn(max - min)
+	rndMutex.Unlock()
 	return min + n
 }
 
 func Duration(min, max time.Duration) time.Duration {
+	rndMutex.Lock()
 	n := rnd.Int63n(int64(max) - int64(min))
+	rndMutex.Unlock()
 	return min + time.Duration(n)
 }
 
 func IPAddr() string {
-	return fmt.Sprintf("192.168.%d.%d", rnd.Intn(255), rnd.Intn(255))
+	return "192.168.1.1"
 }
 
 func Port() int {
@@ -112,12 +120,16 @@ func OperationForResource(resource string) string {
 
 func TraceID() pcommon.TraceID {
 	var b [16]byte
+	rndMutex.Lock()
 	_, _ = rnd.Read(b[:]) // always returns nil error
+	rndMutex.Unlock()
 	return b
 }
 
 func SpanID() pcommon.SpanID {
 	var b [8]byte
+	rndMutex.Lock()
 	_, _ = rnd.Read(b[:]) // always returns nil error
+	rndMutex.Unlock()
 	return b
 }
