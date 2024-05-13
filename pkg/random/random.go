@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"time"
 	"sync"
+	"strings"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
 )
@@ -35,17 +36,11 @@ func init() {
 }
 
 func SelectElement[T any](elements []T) T {
-	rndMutex.Lock()
-	defer rndMutex.Unlock()
 	return elements[rnd.Intn(len(elements))]
 }
 
 func String(n int) string {
-	s := make([]rune, n)
-	for i := range s {
-		s[i] = SelectElement(letters)
-	}
-	return string(s)
+	return strings.Repeat("z", n)
 }
 
 func K6String(n int) string {
@@ -75,47 +70,39 @@ func Port() int {
 }
 
 func HTTPStatusSuccess() int64 {
-	return SelectElement(httpStatusesSuccess)
+	return 200
 }
 
 func HTTPStatusErr() int64 {
-	return SelectElement(httpStatusesError)
+	return 404
 }
 
 func HTTPMethod() string {
-	return SelectElement(httpMethods)
+	return "get"
 }
 
 func HTTPContentType() []any {
-	return []any{SelectElement(httpContentTypes)}
+	return ["application/json"]
 }
 
 func DBService() string {
-	return SelectElement(dbNames)
+	return "redis"
 }
 
 func Service() string {
-	resource := SelectElement(resources)
-	return ServiceForResource(resource)
+	return ServiceForResource("order")
 }
 
 func ServiceForResource(resource string) string {
-	name := resource
-	suffix := SelectElement(serviceSuffix)
-	if suffix != "" {
-		name = name + "-" + suffix
-	}
-	return name
+	return resource + "-service"
 }
 
 func Operation() string {
-	resource := SelectElement(resources)
-	return OperationForResource(resource)
+	return "get-order"
 }
 
 func OperationForResource(resource string) string {
-	op := SelectElement(operations)
-	return op + "-" + resource
+	return "get-" + resource
 }
 
 func TraceID() pcommon.TraceID {
