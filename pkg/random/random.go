@@ -2,7 +2,6 @@ package random
 
 import (
 	crand "crypto/rand"
-	"fmt"
 	"math/big"
 	"math/rand"
 	"net/http"
