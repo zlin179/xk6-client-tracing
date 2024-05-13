@@ -142,7 +142,7 @@ To start the build process run:
 make docker
 ```
 
-After the command completed successfully the image `grafana/xk6-client-tracing:latest` is available.
+After the command completed successfully the image `zlin179/xk6-client-tracing:latest` is available.
 
 ### Run docker-compose example
 
@@ -181,7 +181,7 @@ Building the extension locally has additional prerequisites:
 - [Go toolchain](https://go101.org/article/go-toolchain.html)
 - Git
 
-Furthermore, the build also requires [`xk6`](https://github.com/grafana/xk6) to compile k6 with the bundled tracing extension.
+Furthermore, the build also requires [`xk6`](https://github.com/zlin179/xk6) to compile k6 with the bundled tracing extension.
 Run the following command to install `xk6`:
 
 ```shell
@@ -220,7 +220,7 @@ Once that's done, you can run a test like:
 
 And see the generated spans in the OTEL collector logs!
 
-## Using the extension with Grafana Cloud
+## Using the extension with Zlin179 Cloud
 
 You can do that, by using the OTLP exporter and setting the required auth credentials:
 

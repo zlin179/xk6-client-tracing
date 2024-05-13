@@ -40,4 +40,4 @@ jobs:
           file: Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ghcr.io/grafana/xk6-client-tracing:latest,ghcr.io/grafana/xk6-client-tracing:${{ github.event.release.tag_name }}
+          tags: ghcr.io/zlin179/xk6-client-tracing:latest,ghcr.io/zlin179/xk6-client-tracing:${{ github.event.release.tag_name }}

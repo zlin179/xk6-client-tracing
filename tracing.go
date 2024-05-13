@@ -26,8 +26,8 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
-	"github.com/grafana/xk6-client-tracing/pkg/tracegen"
-	"github.com/grafana/xk6-client-tracing/pkg/util"
+	"github.com/zlin179/xk6-client-tracing/pkg/tracegen"
+	"github.com/zlin179/xk6-client-tracing/pkg/util"
 )
 
 type exporterType string
