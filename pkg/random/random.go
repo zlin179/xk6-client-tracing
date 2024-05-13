@@ -31,19 +31,20 @@ var (
 func init() {
 	seed, _ := crand.Int(crand.Reader, big.NewInt(int64(^uint64(0)>>1)))
 	rnd = rand.New(rand.NewSource(seed.Int64()))
+	rndMutex.Lock()
 }
 
 func SelectElement[T any](elements []T) T {
+	rndMutex.Lock()
+	defer rndMutex.Unlock()
 	return elements[rnd.Intn(len(elements))]
 }
 
 func String(n int) string {
 	s := make([]rune, n)
-	rndMutex.Lock()
 	for i := range s {
 		s[i] = SelectElement(letters)
 	}
-	rndMutex.Unlock()
 	return string(s)
 }
 
