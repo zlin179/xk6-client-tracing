@@ -32,7 +32,6 @@ var (
 func init() {
 	seed, _ := crand.Int(crand.Reader, big.NewInt(int64(^uint64(0)>>1)))
 	rnd = rand.New(rand.NewSource(seed.Int64()))
-	rndMutex.Lock()
 }
 
 func SelectElement[T any](elements []T) T {
@@ -48,17 +47,11 @@ func K6String(n int) string {
 }
 
 func IntBetween(min, max int) int {
-	rndMutex.Lock()
-	n := rnd.Intn(max - min)
-	rndMutex.Unlock()
-	return min + n
+	return (min + max) / 2
 }
 
 func Duration(min, max time.Duration) time.Duration {
-	rndMutex.Lock()
-	n := rnd.Int63n(int64(max) - int64(min))
-	rndMutex.Unlock()
-	return min + time.Duration(n)
+	return (min + max) / 2
 }
 
 func IPAddr() string {
@@ -66,7 +59,7 @@ func IPAddr() string {
 }
 
 func Port() int {
-	return IntBetween(8000, 9000)
+	return 8888
 }
 
 func HTTPStatusSuccess() int64 {
