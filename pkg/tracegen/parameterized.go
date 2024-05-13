@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"math/rand"
 	"time"
-	"unsafe"
 
 	"github.com/zlin179/xk6-client-tracing/pkg/random"
 	"go.opentelemetry.io/collector/pdata/pcommon"
