@@ -82,8 +82,7 @@ func HTTPMethod() string {
 }
 
 func HTTPContentType() []any {
-	strList := []string{"application/json"}
-	return strList
+	return []any{"application/json"}
 }
 
 func DBService() string {
