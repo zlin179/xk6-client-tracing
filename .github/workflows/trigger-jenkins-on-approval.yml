@@ -1,0 +1,17 @@
+name: Trigger Jenkins on PR Approval
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  trigger-jenkins:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump full event payload for debugging
+        run: |
+          cat $GITHUB_EVENT_PATH
+
+      - name: Show review state from payload
+        run: |
+          echo "Review state: $(jq .review.state $GITHUB_EVENT_PATH)"
